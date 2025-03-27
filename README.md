@@ -19,7 +19,7 @@
   considered as a process much more frequent than borrowing and returning.
 - Creating a new book
 - Borrowing a book
-- Returning a book and giving a rating
+- Returning a book and giving a rating.
 
 ## Build with
 
