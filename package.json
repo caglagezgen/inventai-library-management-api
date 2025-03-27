@@ -1,0 +1,24 @@
+{
+  "name": "inventai-library-management-api",
+  "version": "1.0.0",
+  "description": "- This is a library management api that helping to members to borrowing books my members.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caglagezgen/inventai-library-management-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caglagezgen/inventai-library-management-api/issues"
+  },
+  "homepage": "https://github.com/caglagezgen/inventai-library-management-api#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
