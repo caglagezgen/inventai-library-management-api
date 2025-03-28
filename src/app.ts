@@ -2,12 +2,17 @@ import express from "express";
 import userRoutes from "#routes/user.routes.js";
 import bookRoutes from "#routes/book.routes.js";
 import { logger } from "#utils/logger.js";
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "#docs/index.js";
 
 // Create Express application
 const app = express();
 
 // Global middlewares
 app.use(express.json());
+
+// Swagger UI documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument.default));
 
 // Routes
 app.use(userRoutes);
