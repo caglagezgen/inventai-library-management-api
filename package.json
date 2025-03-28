@@ -20,7 +20,11 @@
     "test:run": "vitest --run",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset --force",
+    "db:migrate": "prisma migrate deploy",
+    "db:refresh": "npm run db:reset && npm run db:seed"
   },
   "repository": {
     "type": "git",
