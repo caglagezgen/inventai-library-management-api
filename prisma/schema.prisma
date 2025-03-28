@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement()) // Primary Key
+  name       String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  borrowings Borrowing[] // Relation to Borrowing model
+}
+
+model Book {
+  id           Int         @id @default(autoincrement()) // Primary Key
+  name         String
+  averageScore Float?      @default(0.0) // Store average score for efficiency
+  totalScore   Int?        @default(0) // Sum of all user scores
+  ratingsCount Int?        @default(0) // Number of times the book was rated
+  createdAt    DateTime    @default(now())
+  borrowings   Borrowing[] // Relation to Borrowing model
+}
+
+model Borrowing {
+  id         Int       @id @default(autoincrement()) // Primary Key
+  userId     Int // User ID FK
+  bookId     Int // Book ID FK
+  borrowedAt DateTime  @default(now()) // Borrow timestamp
+  returnedAt DateTime? // Return timestamp
+  score      Int? // Score provided by user after returning
+
+  // Relations
+  user User @relation(fields: [userId], references: [id]) // Borrower user relationship
+  book Book @relation(fields: [bookId], references: [id]) // Borrowed book relationship
+
+  @@unique([userId, bookId, returnedAt]) // SQL-level constraint: Prevent duplicate active borrowings
+}
