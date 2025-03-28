@@ -1,6 +1,7 @@
 import express from "express";
-import UsersRouter from "#routes/users.js";
-import BooksRouter from "#routes/books.js";
+import userRoutes from "#routes/user.routes.js";
+import bookRoutes from "#routes/book.routes.js";
+import { logger } from "#utils/logger.js";
 
 // Create Express application
 const app = express();
@@ -9,8 +10,8 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use(UsersRouter);
-app.use(BooksRouter);
+app.use(userRoutes);
+app.use(bookRoutes);
 
 // Health check endpoint
 app.get("/health", (_req, res) => {
@@ -25,7 +26,7 @@ app.use((_req, res) => {
 // Global error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    console.error("Unhandled error:", err);
+    logger.error(err.stack);
     res.status(500).json({ status: "error", message: "Internal server error" });
 });
 
