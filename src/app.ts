@@ -4,12 +4,16 @@ import bookRoutes from "#routes/book.routes.js";
 import { logger } from "#utils/logger.js";
 import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "#docs/index.js";
+import { requestLoggerMiddleware } from "#middlewares/request-logger.middleware.js";
 
 // Create Express application
 const app = express();
 
 // Global middlewares
 app.use(express.json());
+
+// Request logging middleware
+app.use(requestLoggerMiddleware);
 
 // Swagger UI documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument.default));
