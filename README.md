@@ -1,27 +1,159 @@
-# Invent.ai Backend Case Study
+# Library Management API
 
-- This is a library management api that helping to members to borrowing books my members.
+A RESTful API built with Node.js, Express, and PostgreSQL that helps manage a library system where users can borrow books, return them, and provide ratings.
 
-## API Docs
+## Project Overview
 
-- Api documentation is available at "link". You can query the server from here.
+This Library Management API enables library members to:
 
-## Demo Link
+- Create user accounts
+- Browse available books
+- Borrow books
+- Return books with ratings
+- View borrowing history and book ratings
 
-## Description
+The system automatically calculates average book ratings based on user reviews and maintains a complete borrowing history.
 
-## Api Features
+## Running the Application
+
+### Prerequisites
+
+- Node.js (v22+)
+- npm (v10+)
+- PostgreSQL (v17+)
+
+### Environment Setup
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/caglagezgen/inventai-library-management-api.git
+   cd inventai-library-management-api
+   ```
+
+2. Use the correct Node.js version:
+
+   ```
+   nvm use
+   ```
+
+   This will use the Node.js version specified in the `.nvmrc` file.
+
+3. Install dependencies:
+
+   ```
+   npm install
+   ```
+
+4. Create a `.env` file in the project root with the following content:
+   ```
+   DATABASE_URL="postgresql://postgres:your_password@localhost:5432/library_management"
+   PORT=3000
+   ```
+   Replace `your_password` with your PostgreSQL password.
+
+### Database Setup
+
+1. **Start the PostgreSQL database**
+
+   If using Docker:
+
+   ```
+   docker-compose up -d
+   ```
+
+   If using a local PostgreSQL 17 installation, ensure it's running.
+
+2. **Initialize the database schema**
+
+   Using Prisma migrations (recommended):
+
+   ```
+   npm run db:migrate
+   ```
+
+3. **Seed the database with sample data**:
+   ```
+   npm run db:seed
+   ```
+
+### Running the Application
+
+1. **Development mode** (with hot reload):
+
+   ```
+   npm run dev
+   ```
+
+2. **Production mode**:
+
+   ```
+   npm run build
+   npm start
+   ```
+
+3. Access the application:
+   - API: [http://localhost:3000](http://localhost:3000)
+   - API Documentation: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+   - Health check: [http://localhost:3000/health](http://localhost:3000/health)
+
+## API Documentation
+
+API documentation is available via Swagger UI at `/api-docs` when running the application. This interactive documentation allows you to:
+
+- View all available endpoints
+- Test the API directly from the documentation
+- See request/response samples and schemas
+
+## Tech Stack
+
+- **Backend**: Node.js with Express
+- **Database**: PostgreSQL with Prisma ORM
+- **Validation**: Zod schema validation
+- **Documentation**: Swagger UI Express
+- **Logging**: Winston
+- **Testing**: Vitest
+- **Code Quality**: ESLint, Prettier, Husky for pre-commit hooks
+
+## API Features
 
 - Listing users
-- Accessing information about a user (name, books borrowed in the past with their user
-  scores, and currently borrowed books)
+- Accessing information about a user (name, books borrowed in the past with their user scores, and currently borrowed books)
 - Creating a new user
 - Listing books
-- Accessing information about a book (name and average rating). Book viewing should be
-  considered as a process much more frequent than borrowing and returning.
+- Accessing information about a book (name and average rating)
 - Creating a new book
 - Borrowing a book
-- Returning a book and giving a rating.
+- Returning a book and giving a rating
+
+## Testing
+
+Run unit tests:
+
+```
+npm run test:run
+```
+
+Run tests in watch mode:
+
+```
+npm test
+```
+
+View code coverage:
+
+```
+npm run coverage
+```
+
+## Useful Scripts
+
+- `npm run db:reset`: Reset the database (deletes all data and recreates tables)
+- `npm run db:refresh`: Reset the database and seed it with fresh data
+- `npm run lint`: Check code for linting issues
+- `npm run lint:fix`: Fix linting issues
+- `npm run format`: Format code with Prettier
+- `npm run type-check`: Verify TypeScript types
 
 ## Database Schema
 
@@ -58,52 +190,6 @@ Tracks all book borrowing transactions
 - `returnedAt`: Timestamp when the book was returned (null when still borrowed)
 - `score`: Rating given by the user (1-10) when returning the book
 
-## Entity Relationship Diagram
+## License
 
-```
-User 1 --- * Borrowing * --- 1 Book
-```
-
-## Developed with tools
-
-- Package manager NPM
-- Express Framework with Node.js
-- PostreSQL with Prisma
-- Validation with Joi
-- Logger with Winston and Morgan
-- Documentation with Swagger
-- Test with supertest and jest
-- Published with Heroku
-
-## Getting Started
-
-### Database Setup Options
-
-1. **Using Prisma Migrations (recommended):**
-
-   ```
-   npx prisma migrate dev
-   ```
-
-2. **Using Raw SQL:**
-   Execute the provided `schema.sql` file in your PostgreSQL instance:
-   ```
-   psql -U postgres -d library_management -f schema.sql
-   ```
-
-### Start the Application
-
-Start the PostgreSQL container:
-`docker-compose up -d`
-
-Check the running container:
-`docker ps`
-
-Verify the database tables exist:
-`docker exec -it library_postgres psql -U postgres -d library_management -c '\dt'`
-
-Install dependencies:
-`npm install`
-
-Run the application in development mode:
-`npm run dev`
+This project is licensed under the MIT License - see the LICENSE file for details.
