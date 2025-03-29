@@ -1,6 +1,5 @@
 import { Book as PrismaBook } from '@prisma/client';
 
-// Use Prisma's generated type as a base
 export type Book = PrismaBook;
 
 export interface BookCreateDto {

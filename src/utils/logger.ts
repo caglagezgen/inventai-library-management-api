@@ -9,7 +9,6 @@ const logFormat = winston.format.combine(
     })
 );
 
-// Creates and exports the logger instance
 export const logger = winston.createLogger({
     // Sets log level based on environment:
     // - In production: only logs 'info' level and above (info, warn, error)
